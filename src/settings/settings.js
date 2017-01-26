@@ -1,12 +1,3 @@
-require('./css/main.scss')
-require('./css/fontFace.scss')
-require('./css/animations.scss')
-require('./css/settings.scss')
-require('./css/support.scss')
-
-var Wix = require('Wix')
-var $ = require('jquery')
-
 
 function onUpdate(key, value) {
   Wix.Settings.triggerSettingsUpdatedEvent({key: key, value: value});

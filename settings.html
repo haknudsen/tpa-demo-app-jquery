@@ -262,30 +262,24 @@ $(document).ready(function() {
             $('#actor-demo').empty();
         playerTH('#actor-demo',actorList[value].label);
     }	
-    //--------------------------------Create script list        
-	var scriptList = Array();
-	$.getJSON("scripts.json", function(script) {
-        console.log("this is the result-" + script);
-		$.each(script, function(i, title) {
-			var newActor = {
-				value: i.toString(),
-				label: title
-			};
-			scriptList.push(newActor);
-		});
+    //----------------------------------Script List
+	var scriptList = [];
+    	$.getJSON('scripts.json', function(scripts) {
+            $.each(scripts, function(index, scripts){
+                var newScript={
+                    value:index.toString(),
+                    label:scripts.title
+                }
+                scriptList.push(newScript)
+            });
         console.log(scriptList);
-	});
+    	})
 	var options = {
 		title: 'Script',
 		defaultValue: '0',
 		infoTitle: 'Script',
 		infoText: 'Choose Your Script',
-		options:[
-        {value: '1', label: 'main'},
-        {value: '2', label: 'sub level 1', className: 'level1'},
-        {value:'3', label: 'sub 2 level 1', className: 'level1'},
-        {value:'4', label: 'sub level 2', className: 'level2'},
-        {value:'5', label: 'main 2'}
+		options:scriptList
 	};
 	$("#script").getCtrl().render(options);
 });

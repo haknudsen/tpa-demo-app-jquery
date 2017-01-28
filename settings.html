@@ -68,7 +68,7 @@
              wix-options=""
         ></div>
     <hr class="divider-long"/>
-    <div id="script-example"> </div>
+    <p id="script-example"> </p>
   </div>
   
   <!--Player tab-->
@@ -242,13 +242,8 @@ $(document).ready(function() {
 	$("#actor").getCtrl().render(options);
 	//-------------------------------actor change
 	$("#actor").getCtrl().onChange(function(value) {
-		console.log("actor-", value, ' selected');
             changeActor(value);
 	});
-    //---------------------------script change
-     $("#script").getCtrl().onChange(function(value){
-        console.log(value, ' selected');
-    });
     //----------------------Actor Demo
     var $appTabs = $("#panelTabs").getCtrl();
     $appTabs.onChange(function(value) {
@@ -258,30 +253,43 @@ $(document).ready(function() {
         }
     });
     function changeActor(value){
-        console.log("Change Actor-" + value);
             $('#actor-demo').empty();
         playerTH('#actor-demo',actorList[value].label);
     }	
     //----------------------------------Script List
-	var scriptList = [];
+	var scriptTitles = [];
+    var scriptContent = [];
     	$.getJSON('scripts.json', function(scripts) {
             $.each(scripts, function(index, scripts){
                 var newScript={
                     value:index.toString(),
                     label:scripts.title
                 }
-                scriptList.push(newScript)
+                scriptTitles.push(newScript)
+                var newContent={
+                    value:index.toString(),
+                    label:scripts.content
+                }
+                scriptContent.push(newContent)
             });
-        console.log(scriptList);
     	})
 	var options = {
 		title: 'Script',
 		defaultValue: '0',
 		infoTitle: 'Script',
 		infoText: 'Choose Your Script',
-		options:scriptList
+		options:scriptTitles
 	};
 	$("#script").getCtrl().render(options);
+    //---------------------------script change
+     $("#script").getCtrl().onChange(function(value){
+         var $cleanScript = scriptContent[value].label;
+         $cleanScript = $cleanScript.html();
+        $('#script-example').text(cleanScript);
+        console.log(cleanScript);
+    });
+    //-----------------------------------script change
+    
 });
 </script>
 </body>

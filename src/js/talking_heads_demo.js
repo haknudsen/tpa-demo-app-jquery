@@ -27,9 +27,7 @@ function playerTH(playerLoc, actor) {
         hVideo = path + actor + ".mp4",
         leftEnd = left.charAt(left.length - 1),
         overflow = "hidden",
-        playerBarWidth = 134,
         btnWidth = 32,
-        playerBarMargin = (width - playerBarWidth) / 2,
         hasSeenLS, hasSeenSS = false,
         thplayer, spokespersonImage, playingS, toLoop, toMute = false,
         toPlay = true,
@@ -204,46 +202,46 @@ function playerTH(playerLoc, actor) {
             "id": 'PlayerBar'
         }).appendTo(playerLoc);
         $('#PlayerBar').css({
-            "width": playerBarWidth + "px",
             "borderRadius": "8px",
-            "border": "1px solid " + color,
-            "paddingLeft": "3px",
-            "paddingTop": "1px",
+            "border": "2px solid " + color,
+            "padding": "0",
             "margin": "0 auto",
-            "left": playerBarMargin + "px",
             "bottom": "0px",
             "position": "absolute",
-            "background": convertHex(color,$("#bar-color").getCtrl().getValue().opacity)
+            "background": convertHex(color, $("#bar-color").getCtrl().getValue().opacity)
         });
-        console.log(color);
+        $('#PlayerBar').ready(function () {
+            var pbLeft = ((width - $('#PlayerBar').outerWidth()) / 2) + "px";
+            $('#PlayerBar').css("left", pbLeft);
+            console.log(width + "--" + $('#PlayerBar').width());
+
+        });
         $('<img />', {
             "id": "PlayPauseBtn",
-            "src": buttonPath + "PlayBtn.png",
-            "width": btnWidth,
-            "height": btnWidth,
+            "src": buttonPath + "play.svg",
             "class": "playerBtns"
         }).appendTo($('#PlayerBar'));
         $('<img />', {
             "id": "muteBtn",
-            "src": buttonPath + "VolumeBtn.png",
-            "width": btnWidth,
-            "height": btnWidth,
+            "src": buttonPath + "volume.svg",
             "class": "playerBtns"
         }).appendTo($('#PlayerBar'));
         $('<img />', {
-            "id": "restartBtn",
-            "src": buttonPath + "RestartBtn.png",
-            "width": btnWidth,
-            "height": btnWidth,
+            "id": "restart",
+            "src": buttonPath + "restart.svg",
             "class": "playerBtns"
         }).appendTo($('#PlayerBar'));
         $('<img />', {
             "id": "playerClose",
-            "src": buttonPath + "ExitBtn.png",
-            "width": btnWidth,
-            "height": btnWidth,
+            "src": buttonPath + "exit.svg",
             "class": "playerBtns"
         }).appendTo($('#PlayerBar'));
+        $('<img />', {
+            "id": "logo",
+            "src": buttonPath + "logo.svg",
+            "class": "playerBtns"
+        }).appendTo($('#PlayerBar'));
+        $('.playerBtns').css({"padding":"2px 2px 0","width":btnWidth,"height":btnWidth});
     }
 
     function HTML5Autostart() {
@@ -257,7 +255,7 @@ function playerTH(playerLoc, actor) {
         }
         if (autostart === "yes" || toLoop === true) {
             thplayer.autoplay = true;
-            document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+            document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
             document.getElementById("PlayerBar").style.opacity = "1";
             startPlaying();
         } else {
@@ -298,7 +296,7 @@ function playerTH(playerLoc, actor) {
                     case "muteBtn":
                         muteToggle();
                         break;
-                    case "restartBtn":
+                    case "restart":
                         restartClick();
                         break;
                     case "playerClose":
@@ -336,16 +334,16 @@ function playerTH(playerLoc, actor) {
             spokespersonImage.style.display = "none";
         } catch (err) {}
         thplayer.play();
-        document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
     }
 
     function playToggle() {
         if (thplayer.paused) {
             thplayer.play();
-            document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+            document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
             document.getElementById("PlayerBar").style.opacity = "1";
         } else {
-            document.getElementById("PlayPauseBtn").src = buttonPath + "PlayBtn.png";
+            document.getElementById("PlayPauseBtn").src = buttonPath + "play.svg";
             thplayer.pause();
         }
     }
@@ -353,16 +351,16 @@ function playerTH(playerLoc, actor) {
     function muteToggle() {
         if (thplayer.muted) {
             thplayer.muted = false;
-            document.getElementById("muteBtn").src = buttonPath + "VolumeBtn.png";
+            document.getElementById("muteBtn").src = buttonPath + "volume.svg";
         } else {
-            document.getElementById("muteBtn").src = buttonPath + "VolumeBtnMute.png";
+            document.getElementById("muteBtn").src = buttonPath + "mute.svg";
             thplayer.muted = true;
         }
     }
 
     function restartClick() {
         thplayer.currentTime = 0;
-        document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
         playClick();
         thplayer.play();
     }
@@ -388,13 +386,13 @@ function playerTH(playerLoc, actor) {
 
 
     function openLink() {
-        document.getElementById("PlayPauseBtn").src = buttonPath + "PlayBtn.png";
+        document.getElementById("PlayPauseBtn").src = buttonPath + "play.svg";
         thplayer.pause();
         window.open(vidLink, openIn);
     }
 
     function removeMuted() {
-        document.getElementById("muteBtn").src = buttonPath + "VolumeBtn.png";
+        document.getElementById("muteBtn").src = buttonPath + "volume.svg";
         toMute = false;
         toLoop = false;
         thplayer.muted = false;
@@ -406,7 +404,7 @@ function playerTH(playerLoc, actor) {
 
     function startPlaying() {
         thplayer.play();
-        document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
     }
 
     function convertHex(hex, opacity) {
@@ -415,7 +413,7 @@ function playerTH(playerLoc, actor) {
         var g = parseInt(hex.substring(2, 4), 16);
         var b = parseInt(hex.substring(4, 6), 16);
 
-        var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity  + ')';
+        var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
         return result;
     }
 }

@@ -1,0 +1,59 @@
+[33mcommit 7111a0300079d605ba68056000c7ab53b757de22[m
+Author: haknudsen <paris_giovanni@yahoo.com>
+Date:   Tue Jan 24 20:48:39 2017 -0700
+
+    version 1
+
+[33mcommit 46494474fb2db2a3c99bfbacd1b96cc2a0355294[m
+Author: Adiel <adiela@wix.com>
+Date:   Wed Dec 21 11:34:04 2016 +0200
+
+    update libraries versions
+
+[33mcommit a33357deaaa69eb1d57665168cd478d6669ec3c9[m
+Author: Adiel <adiela@wix.com>
+Date:   Thu Dec 15 17:50:20 2016 +0200
+
+    add missing dependencies
+
+[33mcommit b8073762385775fa8cee3ba288df7860eff22999[m
+Merge: 6aa4ba5 8055a60
+Author: Adiel Amzaleg <idealamz@users.noreply.github.com>
+Date:   Thu Dec 15 17:47:43 2016 +0200
+
+    Merge pull request #3 from wix/gilatwix-globus
+    
+    'globus' changed to 'globe'
+
+[33mcommit 6aa4ba56b1d1b57308ffd2d30542fc4138dbf80b[m
+Merge: b325dc7 f068ca0
+Author: Adiel Amzaleg <idealamz@users.noreply.github.com>
+Date:   Thu Dec 15 17:47:27 2016 +0200
+
+    Merge pull request #2 from wix/gilatwix-jqapp
+    
+    Updated SDK and UI-Lib versions
+
+[33mcommit 8055a604e6742599b7bdae38d14ce744ea89ed1b[m
+Author: Gil Berger <gilb@wix.com>
+Date:   Mon Nov 14 15:16:03 2016 +0200
+
+    'globus' changed to 'globe'
+
+[33mcommit f068ca0dd4e42985d2e1a165d0f7bf0ecdacece6[m
+Author: Gil Berger <gilb@wix.com>
+Date:   Thu Nov 10 18:11:55 2016 +0200
+
+    Updated SDK and UI-Lib versions
+
+[33mcommit b325dc7f6ee59eb95584c0734c6473eecc30722f[m
+Author: Omer Ganim <ganimomer@gmail.com>
+Date:   Tue Sep 6 17:57:41 2016 +0300
+
+    remove link tag from sample since it's included in the bundle
+
+[33mcommit 60f74fb0ede8a9427a3e3a85a3f68ea76ef98ba4[m
+Author: Adiel <adiela@wix.com>
+Date:   Mon Sep 5 10:34:50 2016 +0300
+
+    initial commit

@@ -1,0 +1,20 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# Explicit paths specified without -i or -o; assuming --only paths...
+# On branch TalkingHeads
+# Changes to be committed:
+#	modified:   settings.html
+#
+# Changes not staged for commit:
+#	modified:   src/settings/svg/logo.svg
+#
+# Untracked files:
+#	_notes/
+#	src/settings/_notes/
+#	src/settings/css/_notes/
+#	src/settings/svg/Simple30x30.png
+#	src/settings/svg/_notes/
+#	src/widget/_notes/
+#
+

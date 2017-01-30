@@ -11,7 +11,7 @@ function playerTH(playerLoc, actor) {
         centeroffset = "auto", //if centering on page negative numbers are left and positive numbers are right
         color = $("#bar-color").getCtrl().getValue().color, //the color of the player bar.
         volume = "0.6",
-        delay = 0, //delay start of video
+        delay = $("#player_delay").getCtrl().getValue(), //delay start of video
         /*controlbar = "mouse",*/ //options for showing the controlbar, yes, no, and mouse
         exitbtn = "no", //show or not show exitbtn
         autostart = "no", //autostart options yes, no, mute, oncethenpic, oncethenmute, onceonlythenpic, onceonlythenmute, and loop
@@ -24,10 +24,10 @@ function playerTH(playerLoc, actor) {
         // end Main Player Vars
         gifBackground = "url('" + actorpic + "')",
         buttonPath = "src/buttons/",
+        btnWidth = Number($("#btn-size").getCtrl().getValue()),
         hVideo = path + actor + ".mp4",
         leftEnd = left.charAt(left.length - 1),
         overflow = "hidden",
-        btnWidth = 32,
         hasSeenLS, hasSeenSS = false,
         thplayer, spokespersonImage, playingS, toLoop, toMute = false,
         toPlay = true,
@@ -241,7 +241,7 @@ function playerTH(playerLoc, actor) {
             "src": buttonPath + "logo.svg",
             "class": "playerBtns"
         }).appendTo($('#PlayerBar'));
-        $('.playerBtns').css({"padding":"2px 2px 0","width":btnWidth,"height":btnWidth});
+        $('.playerBtns').css({"padding":"2px 1px 0","width":btnWidth,"height":btnWidth});
     }
 
     function HTML5Autostart() {
@@ -255,8 +255,8 @@ function playerTH(playerLoc, actor) {
         }
         if (autostart === "yes" || toLoop === true) {
             thplayer.autoplay = true;
-            document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
-            document.getElementById("PlayerBar").style.opacity = "1";
+            $("#PlayPauseBtn").attr("src",buttonPath + "pause.svg");
+            $("#PlayerBar").style.opacity = "1";
             startPlaying();
         } else {
             addBackground();
@@ -334,16 +334,16 @@ function playerTH(playerLoc, actor) {
             spokespersonImage.style.display = "none";
         } catch (err) {}
         thplayer.play();
-        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
+        $("#PlayPauseBtn").attr("src",buttonPath + "pause.svg");
     }
 
     function playToggle() {
         if (thplayer.paused) {
             thplayer.play();
-            document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
-            document.getElementById("PlayerBar").style.opacity = "1";
+            $("#PlayPauseBtn").attr("src",buttonPath + "pause.svg");
+            $("#PlayerBar").style.opacity = "1";
         } else {
-            document.getElementById("PlayPauseBtn").src = buttonPath + "play.svg";
+            $("#PlayPauseBtn").attr("src",buttonPath + "play.svg");
             thplayer.pause();
         }
     }
@@ -351,16 +351,16 @@ function playerTH(playerLoc, actor) {
     function muteToggle() {
         if (thplayer.muted) {
             thplayer.muted = false;
-            document.getElementById("muteBtn").src = buttonPath + "volume.svg";
+            $("#muteBtn").attr("src", buttonPath + "volume.svg");
         } else {
-            document.getElementById("muteBtn").src = buttonPath + "mute.svg";
+            $("#muteBtn").attr("src", buttonPath + "mute.svg");
             thplayer.muted = true;
         }
     }
 
     function restartClick() {
         thplayer.currentTime = 0;
-        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
+        $("#PlayPauseBtn").attr("src",buttonPath + "pause.svg");
         playClick();
         thplayer.play();
     }
@@ -368,7 +368,7 @@ function playerTH(playerLoc, actor) {
     function closePlayer() {
         thplayer.pause();
         clearInterval(playingS);
-        $(playerLoc).remove();
+        $(playerLoc).empty();
     }
 
     function addBackground() {
@@ -386,13 +386,13 @@ function playerTH(playerLoc, actor) {
 
 
     function openLink() {
-        document.getElementById("PlayPauseBtn").src = buttonPath + "play.svg";
+        $("#PlayPauseBtn").attr("src",buttonPath + "play.svg");
         thplayer.pause();
         window.open(vidLink, openIn);
     }
 
     function removeMuted() {
-        document.getElementById("muteBtn").src = buttonPath + "volume.svg";
+        $("#muteBtn").attr("src", buttonPath + "volume.svg");
         toMute = false;
         toLoop = false;
         thplayer.muted = false;
@@ -404,7 +404,7 @@ function playerTH(playerLoc, actor) {
 
     function startPlaying() {
         thplayer.play();
-        document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
+        $("#PlayPauseBtn").attr("src",buttonPath + "pause.svg");
     }
 
     function convertHex(hex, opacity) {

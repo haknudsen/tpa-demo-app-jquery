@@ -68,7 +68,9 @@
              wix-options=""
         ></div>
     <hr class="divider-long"/>
-    <p id="script-example"> </p>
+    <div class="developer-info">
+      <p id="script-example"> </p>
+    </div>
   </div>
   
   <!--Player tab-->
@@ -92,7 +94,6 @@
                     { value: '2', label: 'Mute'}
                 ]}"
         ></div>
-    <hr class="divider-long"/>
     <div class="player_session_play"
              wix-ctrl="DropDown"
              wix-options="{
@@ -107,7 +108,6 @@
                     ]
                 }"
         ></div>
-    <hr class="divider-long"/>
     <div id="ToggleSwitch" class="player_exit"
              wix-ctrl="ToggleSwitch"
              wix-options="{
@@ -118,7 +118,7 @@
                     }"
         ></div>
     <hr class="divider-long"/>
-    <div class="player_delay"
+    <div id="player_delay"
              wix-ctrl="Slider"
              wix-options="{
                     title: 'Delay (secs)',
@@ -138,6 +138,18 @@
                     startWithOpacity: 0.42                  
                 }"
         ></div>
+    <div id="btn-size"
+             wix-ctrl="Slider"
+             wix-options="{
+                    title: 'Button Size',
+                    min: 12,
+                    max: 48,
+                    step: 1,
+                    defaultValue: 32,
+                        infoTitle: 'Button Size',
+                        infoText: 'Button Size the start of the video'
+                }"
+        ></div>
   </div>
   
   <!--Support tab-->
@@ -150,13 +162,13 @@
     <ul class="developer-info">
       <li>
         <div wix-ctrl="Symbol" wix-options="{name: 'email'}"></div>
-        support@websitetalkingheads.com </li>
+        <a href="mailto:support@websitetalkingheads.com">support@websitetalkingheads.com</a></li>
       <li>
         <div wix-ctrl="Symbol" wix-options="{name: 'globe'}"></div>
-        http://websitetalkingheads.com/Wix/ </li>
+        <a href="http://www.websitetalkingheads.com/Wix/" title="http://www.websitetalkingheads.com/Wix/">http://websitetalkingheads.com</a> </li>
       <li>
         <div wix-ctrl="Symbol" wix-options="{name: 'phone'}"></div>
-        1 801 748 2281 </li>
+        <a href="tel://801-748-2281" title="Give us a call.">1 801 748 2281</a> </li>
     </ul>
     <hr class="divider-long"/>
     <div wix-ctrl="SectionDividerLabeled"
@@ -221,6 +233,11 @@ $(document).ready(function() {
     $("#bar-color").getCtrl().onChange(function(val){
               console.log(val.color,"--",val.opacity);
 });
+    //--------------------btn size
+    $("#btn-size").getCtrl().onChange(function(val){
+        var btnSize = Number(val);
+              console.log(btnSize+"px");
+});
 	//--------------------------------Create actor list        
 	var actorList = Array();
 	$.getJSON("actors.json", function(result) {
@@ -247,14 +264,20 @@ $(document).ready(function() {
     //----------------------Actor Demo
     var $appTabs = $("#panelTabs").getCtrl();
     $appTabs.onChange(function(value) {
-        if(value===2){
-            var value=$("#actor").getCtrl().getValue();
+        switch(value){
+            case 2:
+            var value=$("#actor").getCtrl().getValue().value;
             changeActor(value);
+                break;
+            case 3:
+                var value = $("#script").getCtrl().getValue();
+                scriptChange(value);
+                break;
         }
     });
     function changeActor(value){
             $('#actor-demo').empty();
-        playerTH('#actor-demo',actorList[value].label);
+            playerTH('#actor-demo',actorList[value].label);
     }	
     //----------------------------------Script List
 	var scriptTitles = [];
@@ -265,12 +288,13 @@ $(document).ready(function() {
                     value:index.toString(),
                     label:scripts.title
                 }
-                scriptTitles.push(newScript)
+                scriptTitles.push(newScript);
+                var script = scripts.content;
                 var newContent={
                     value:index.toString(),
-                    label:scripts.content
+                    label:script
                 }
-                scriptContent.push(newContent)
+                scriptContent.push(newContent);
             });
     	})
 	var options = {
@@ -283,13 +307,17 @@ $(document).ready(function() {
 	$("#script").getCtrl().render(options);
     //---------------------------script change
      $("#script").getCtrl().onChange(function(value){
-         var $cleanScript = scriptContent[value].label;
-         $cleanScript = $cleanScript.html();
-        $('#script-example').text(cleanScript);
-        console.log(cleanScript);
+         scriptChange(value);
     });
     //-----------------------------------script change
-    
+    function scriptChange(value){
+         var currentScript = scriptContent[value].label;
+        $("#script-example").html(currentScript);
+        var cleanedScript =$("#script-example").html();
+        cleanedScript = cleanedScript.replace(/&nbsp;/g,":");
+        console.log(cleanedScript + " - " + typeof cleanedScript);
+        $("#script-example").text(cleanedScript);
+    }
 });
 </script>
 </body>
